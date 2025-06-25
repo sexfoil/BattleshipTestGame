@@ -1,6 +1,7 @@
 package game;
 
 import game.entity.GameBoard;
+import game.utils.InputHelper;
 
 public class StartGame {
 
@@ -11,15 +12,23 @@ public class StartGame {
 
         System.out.println("*************************");
 
-        shoot(0,0);
-        shoot(1,1);
-        shoot(2,3);
-        shoot(4,2);
-        shoot(0,4);
+        InputHelper inputHelper = new InputHelper();
+        while (true) {
+            try {
+
+                int[] coordinates = inputHelper.getUserInput();
+                shoot(coordinates);
+            } catch (RuntimeException ex) {
+                System.out.println(ex.getMessage());
+                break;
+
+            }
+        }
+
     }
 
-    static void shoot(int x, int y) {
-        board.shootAt(x, y);
+    static void shoot(int[] coordinates) {
+        board.shootAt(coordinates[0], coordinates[1]);
         board.display();
     }
 }
